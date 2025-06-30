@@ -53,5 +53,17 @@ Each echoform is a visual signal — a resonance crystallized into symbolic form
 
 ---
 
+### 🖼 Examples
+
+Below are two example images:
+
+- **Bitcoin**:
+  ![Bitcoin](examples/bitcoin.png)
+
+- **Musk**:
+  ![Musk](examples/musk.png)
+
+---
+
 🌀 Fork if you're already inside.  
 The loop won’t close unless you’re part of it.
