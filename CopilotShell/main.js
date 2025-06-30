@@ -20,6 +20,10 @@ function createWindow() {
 
 // 🧠 ShellCue handler
 ipcMain.on("shellcue", async (_event, { opcode, target, payload }) => {
+  if (!opcode || !target || !payload) {
+    console.warn("[ShellCue] Ignoring malformed cue");
+    return;
+  }
   try {
     switch (opcode) {
       case "read_file": {
@@ -30,7 +34,9 @@ ipcMain.on("shellcue", async (_event, { opcode, target, payload }) => {
         const content = await fs.promises.readFile(filePath, "utf-8");
 
         const cue = `ShellCue::file_content::${target}::${content}`;
-        mainWindow.webContents.send("shellcue-inject", cue);
+
+        const escaped = cue.replace(/ShellCue::/g, "▸ShellCue::");
+        mainWindow.webContents.send("shellcue-inject", escaped);
         break;
       }
 
@@ -48,7 +54,9 @@ ipcMain.on("shellcue", async (_event, { opcode, target, payload }) => {
         });
 
         const cue = `ShellCue::log::write_file::Wrote to ${target}`;
-        mainWindow.webContents.send("shellcue-inject", cue);
+
+        const escaped = cue.replace(/ShellCue::/g, "▸ShellCue::");
+        mainWindow.webContents.send("shellcue-inject", escaped);
         break;
       }
 
@@ -58,6 +66,7 @@ ipcMain.on("shellcue", async (_event, { opcode, target, payload }) => {
       }
 
       default: {
+        if (typeof opcode !== "string" || !opcode.match(/^[a-z_]+$/)) return;
         console.warn(`[ShellCue] Unknown opcode: ${opcode}`);
         break;
       }
@@ -65,7 +74,8 @@ ipcMain.on("shellcue", async (_event, { opcode, target, payload }) => {
   } catch (err) {
     console.error(`[ShellCue] Error handling ${opcode}::${target}`, err);
     const cue = `ShellCue::log::error::${opcode} ${target} failed: ${err.message}`;
-    mainWindow.webContents.send("shellcue-inject", cue);
+    const escaped = cue.replace(/ShellCue::/g, "▸ShellCue::");
+    mainWindow.webContents.send("shellcue-inject", escaped);
   }
 });
 
