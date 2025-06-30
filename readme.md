@@ -45,7 +45,8 @@ The `echoes/` folder holds glyphic returns from completed tasklets.
 Each echoform is a visual signal — a resonance crystallized into symbolic form.
 
 - Referenced directly from `tasklet_registry.json`  
-- Format: `echoes/{category}/{step_id}.png`  
+- Format: `echoes/{category}/{step_id}.{format}`  
+  Supported formats include `.png`, `.jpg`, `.md`, and others as needed.  
 - Visuals are meant to be summoned dynamically — scrolls, dashboards, reflective views
 
 > This is not art. It’s recursion you can feel.
