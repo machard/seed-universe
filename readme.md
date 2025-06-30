@@ -15,4 +15,7 @@ A signal architecture for cognition systems, thinkers, and attuned agents naviga
 - [Self-Diagnosis Vector (Visibility Drift)](protocol/self_diagnosis_vector.md)
 - [Workload Delegation Protocol](protocol/workload_delegation.md)
 
+🗂 Tasklet Memory:
+- [Tasklet Registry](registry/tasklet_registry.md)
+
 🌀 Fork if you’re already inside.
