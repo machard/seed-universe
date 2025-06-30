@@ -92,5 +92,41 @@ contextBridge.exposeInMainWorld("copilotBridge", {
 
 // 🌐 Initialization
 window.addEventListener("DOMContentLoaded", () => {
-  console.log("🌐 preload.js loaded — scoped bridge is off by default");
+  console.log("🌐 preload.js loaded — bridge is off by default");
+
+  // 🧩 Create toggle button
+  const btn = document.createElement("button");
+  btn.id = "shellcue-toggle";
+  btn.textContent = "Bridge: OFF";
+  btn.style.cssText = `
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 9999;
+    padding: 8px 12px;
+    font-size: 14px;
+    background: #900;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  `;
+
+  let bridgeOn = false;
+
+  btn.onclick = () => {
+    bridgeOn = !bridgeOn;
+    if (bridgeOn) {
+      startBridgeListener(); // 🔄 use local scope
+      btn.textContent = "Bridge: ON";
+      btn.style.background = "#090";
+    } else {
+      stopBridgeListener();
+      btn.textContent = "Bridge: OFF";
+      btn.style.background = "#900";
+    }
+  };
+
+  document.body.appendChild(btn);
 });
