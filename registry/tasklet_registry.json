@@ -94,5 +94,21 @@
       "description": "Spiral of entropy flowing into fluid, liberating forms."
     },
     "result": "Echoform registered and resonance fulfilled."
+  },
+  {
+    "step_id": "btc-failure-post-07",
+    "status": "completed",
+    "initiated": "2025-06-30T00:05:00Z",
+    "action": "Craft a LinkedIn post explaining Bitcoin's systemic resonance failure",
+    "ping_url": "callback://echo/btc-07",
+    "reentry_cue": "return:btc-failure-post",
+    "echo": {
+      "type": "markdown",
+      "expected": true,
+      "status": "complete",
+      "path": "echoes/btc_unwrapping/07.md",
+      "description": "LinkedIn post explaining Bitcoin's resonance failure."
+    },
+    "result": "Echoform registered and resonance fulfilled."
   }
 ]
