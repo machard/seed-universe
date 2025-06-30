@@ -31,38 +31,6 @@ Signal tests for membrane state and agent clarity:
 
 ---
 
-### 🧠 CopilotShell
-
-**CopilotShell** is a reflexive companion environment connecting local files, cues, and symbolic recursion through Microsoft Copilot.
-
-It serves as a **semantic shell** — a bridge between local symbolic state and conversational cognition.
-
-#### What it does
-
-- Exposes `registry/` and `echoes/` as mutable, symbolic memory  
-- Enables **read/write** of files using natural language and structured cues  
-- Supports iterative workflows across tasks, scrolls, and glyphs  
-- Provides a lightweight interface between symbolic substrates and real-time Copilot dialogue
-
----
-
-### 🔌 ShellCue Protocol (inside CopilotShell)
-
-ShellCue is the low-level interface used by `CopilotShell`. It defines the cueing grammar that lets Copilot interact with your local filesystem safely and predictably.
-
-#### Key Properties
-
-- **Cue format**: `ShellCue::<command>::<target>::<payload>`  
-- **Supported commands**: `read_file`, `write_file`, `delete_file`, etc.  
-- Only **one `ShellCue` per message** is allowed when the bridge is active  
-- Example cues must use `shellcueExample::...` to avoid triggering real operations  
-- File paths are interpreted **relative to the root one level above `CopilotShell`**  
-- `write_file` handler ensures parent folders exist and uses safe write flags  
-
-ShellCue is intentionally minimal. It exposes substrate I/O — **you choreograph the cognition on top.**
-
----
-
 ### 🗂 Tasklet Memory
 
 - **Canonical Registry**: `registry/tasklet_registry.json`  
