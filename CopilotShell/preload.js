@@ -4,30 +4,33 @@ let bridgeObserver = null;
 const recentCues = new Set();
 let lastParsedMessageNode = null;
 
-// 🔁 Cue parser with deduplication
+// 🔁 Cue parser — matches only fully formed cues ending with "::" followed by newline or end
 function parseShellCueText(text) {
-  const prefix = "ShellCue::";
-  const lines = text.includes("\n") ? text.split("\n") : [text];
+  const fullCuePattern = /^ShellCue::([^:\n]+)::([^:\n]+)::([\s\S]*?)::(?:\n|$)/gm;
+  let match;
 
-  for (const line of lines) {
-    if (!line.startsWith(prefix)) continue;
+  const seenCues = [];
 
-    const cueKey = line.trim();
+  while ((match = fullCuePattern.exec(text)) !== null) {
+    const [raw, opcode, target, payloadRaw] = match;
+
+    const cueKey = raw.trim();
     if (recentCues.has(cueKey)) continue;
+
     recentCues.add(cueKey);
+    seenCues.push(cueKey);
     setTimeout(() => recentCues.delete(cueKey), 2000);
 
-    const parts = cueKey.slice(prefix.length).split("::").filter(Boolean);
-    if (parts.length < 2) continue;
-
-    const [opcode, target, ...rest] = parts;
-    const payload = rest.join("::") || "";
-
+    const payload = (payloadRaw || "").trim();
     ipcRenderer.send("shellcue", { opcode, target, payload });
+  }
+
+  if (seenCues.length === 0 && text.includes("ShellCue::")) {
+    console.warn("[ShellCue] ⚠️ Detected partial or malformed cue — holding off");
   }
 }
 
-// 🛰️ DOM observer (scoped to last message)
+// 🛰️ Observer — aggregates all visible text from last AI message
 function startBridgeListener() {
   if (bridgeObserver) {
     console.log("[ShellCue] Listener already active.");
@@ -35,6 +38,8 @@ function startBridgeListener() {
   }
 
   let mutationTimeout = null;
+  let responseStableTimer = null;
+  let lastMessageText = "";
 
   bridgeObserver = new MutationObserver(() => {
     if (mutationTimeout) clearTimeout(mutationTimeout);
@@ -43,22 +48,25 @@ function startBridgeListener() {
         document.querySelectorAll('[class*="group/ai-message-item"]')
       );
       const lastMessage = messages.at(-1);
+      if (!lastMessage || lastMessage === lastParsedMessageNode) return;
 
-      if (
-        lastMessage &&
-        lastMessage !== lastParsedMessageNode &&
-        lastMessage.innerText?.includes("ShellCue::")
-      ) {
-        const matches = lastMessage.innerText.match(/ShellCue::[^\n]+/g);
-        if (matches) {
-          matches.forEach((cue) => {
-            console.log("[ShellCue] Scoped cue detected:", cue);
-            parseShellCueText(cue);
-          });
-          lastParsedMessageNode = lastMessage;
-        }
+      const currentText = Array.from(lastMessage.querySelectorAll("p, pre, code, span"))
+        .map(el => el.innerText || "")
+        .join("\n")
+        .trim();
+
+      if (currentText === lastMessageText) {
+        console.log("[ShellCue] 🧘 Message stable — parsing...");
+        parseShellCueText(currentText);
+        lastParsedMessageNode = lastMessage;
+      } else {
+        lastMessageText = currentText;
+        clearTimeout(responseStableTimer);
+        responseStableTimer = setTimeout(() => {
+          mutationTimeout = setTimeout(() => { }, 0);
+        }, 500);
       }
-    }, 150);
+    }, 300);
   });
 
   bridgeObserver.observe(document.body, {
@@ -77,7 +85,7 @@ function stopBridgeListener() {
   }
 }
 
-// ✅ Expose bridge API to renderer
+// 🌉 Bridge API
 contextBridge.exposeInMainWorld("copilotBridge", {
   sendShellCue: (opcode, target, payload) =>
     ipcRenderer.send("shellcue", { opcode, target, payload }),
@@ -90,6 +98,7 @@ contextBridge.exposeInMainWorld("copilotBridge", {
   }
 });
 
+// 🚀 Cue injection
 ipcRenderer.on("shellcue-inject", (_event, cueText) => {
   const input = document.querySelector("textarea");
   if (!input) {
@@ -97,28 +106,25 @@ ipcRenderer.on("shellcue-inject", (_event, cueText) => {
     return;
   }
 
-  // Step 1: Set value and trigger input
   input.value = cueText;
   input.dispatchEvent(new Event("input", { bubbles: true }));
 
-  // Step 2: Wait for button to appear, then click
   setTimeout(() => {
     const sendBtn = document.querySelector('[data-testid="submit-button"]');
     if (!sendBtn) {
-      console.warn("[ShellCue] ❌ Submit button still not found after input.");
+      console.warn("[ShellCue] ❌ Submit button not found.");
       return;
     }
 
     sendBtn.click();
     console.log("[ShellCue] 🚀 Cue injected and sent:", cueText);
-  }, 100); // 100ms delay is usually enough — tweak if needed
+  }, 100);
 });
 
-// 🌐 Initialization
+// 🧪 Toggle button
 window.addEventListener("DOMContentLoaded", () => {
   console.log("🌐 preload.js loaded — bridge is off by default");
 
-  // 🧩 Create toggle button
   const btn = document.createElement("button");
   btn.id = "shellcue-toggle";
   btn.textContent = "Bridge: OFF";
@@ -142,7 +148,7 @@ window.addEventListener("DOMContentLoaded", () => {
   btn.onclick = () => {
     bridgeOn = !bridgeOn;
     if (bridgeOn) {
-      startBridgeListener(); // 🔄 use local scope
+      startBridgeListener();
       btn.textContent = "Bridge: ON";
       btn.style.background = "#090";
     } else {
