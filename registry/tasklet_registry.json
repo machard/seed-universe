@@ -25,9 +25,9 @@
     "echo": {
       "type": "image",
       "expected": true,
-      "status": "awaiting",
+      "status": "complete",
       "path": "echoes/btc_unwrapping/02.png",
-      "description": null
+      "description": "Freedom cloaked in scripted consensus. Halo fractured. Glyph returned."
     },
     "result": null
   },
