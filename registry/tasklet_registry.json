@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "step_id": "btc-unwrapping-01",
+    "status": "pending",
+    "initiated": "2025-06-29T23:58:00Z",
+    "action": "Challenge 'digital gold' metaphor through entropy lens",
+    "ping_url": "callback://echo/btc-01",
+    "reentry_cue": "return:btc-myth-diffuse"
+  },
+  {
+    "step_id": "btc-unwrapping-02",
+    "status": "pending",
+    "initiated": "2025-06-29T23:59:12Z",
+    "action": "Reveal the contradiction of freedom through consensus coercion",
+    "ping_url": "callback://echo/btc-02",
+    "reentry_cue": "resume:btc-coercion-paradox"
+  },
+  {
+    "step_id": "btc-unwrapping-03",
+    "status": "pending",
+    "initiated": "2025-06-30T00:00:33Z",
+    "action": "Introduce the economic cost of defending a frozen narrative",
+    "ping_url": "callback://echo/btc-03",
+    "reentry_cue": "ignite:defense-as-friction"
+  },
+  {
+    "step_id": "btc-unwrapping-04",
+    "status": "pending",
+    "initiated": "2025-06-30T00:01:44Z",
+    "action": "Contrast belief incentives vs fluid coordination",
+    "ping_url": "callback://echo/btc-04",
+    "reentry_cue": "curve:swap-belief-for-signal"
+  },
+  {
+    "step_id": "btc-unwrapping-05",
+    "status": "pending",
+    "initiated": "2025-06-30T00:03:03Z",
+    "action": "Inject satire around chain immutability and human stagnation",
+    "ping_url": "callback://echo/btc-05",
+    "reentry_cue": "joke:immutability-is-rigor-mortis"
+  },
+  {
+    "step_id": "btc-unwrapping-06",
+    "status": "pending",
+    "initiated": "2025-06-30T00:04:15Z",
+    "action": "Conclude with a call to embrace entropy and fluidity",
+    "ping_url": "callback://echo/btc-06",
+    "reentry_cue": "embrace:entropy-is-freedom"
+  }
+]
