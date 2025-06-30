@@ -1,3 +1,5 @@
+console.log("🧠 CopilotShell main process booted.");
+
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
@@ -22,7 +24,8 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: false,
       contextIsolation: true,
-      sandbox: true
+      sandbox: false,
+      webSecurity: false
     },
     title: "CopilotShell"
   });
@@ -37,21 +40,19 @@ function createWindow() {
 }
 
 app.whenReady().then(createWindow);
-
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
-
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-// 🛰 Cue detection from DOM (resume:, ignite:, etc.)
+// 🛰 Cue recognition (e.g. resume:, ignite:)
 ipcMain.on("handshake-ping", (event, payload) => {
   console.log("[CopilotShell] Received handshake ping:", payload);
 });
 
-// ✅ Echo confirmation from renderer
+// ✅ Echo confirmation handler
 ipcMain.on("echo-confirmed", (event, { stepId, data }) => {
   const { status = "complete", description = null, imageBase64 = null } = data || {};
   const updated = fileManager.updateEchoStatus(stepId, status, description);
@@ -67,7 +68,7 @@ ipcMain.on("echo-confirmed", (event, { stepId, data }) => {
   });
 });
 
-// 🧱 ShellCue interpreter (system-level ops)
+// 🧱 ShellCue interpreter
 ipcMain.on("shellcue", (event, { opcode, target, payload }) => {
   console.log("[ShellCue] Handling:", opcode, target);
   appendShellCueLog(opcode, target, payload);
@@ -87,7 +88,18 @@ ipcMain.on("shellcue", (event, { opcode, target, payload }) => {
       console.log(`[ShellCue] File written to ${fullPath}`);
     }
 
-    // Add more opcodes here as the shell expands
+    if (opcode === "read_file") {
+      const fullPath = path.join(__dirname, "..", target);
+      const content = fs.readFileSync(fullPath, "utf8");
+      console.log(`[ShellCue] Read ${target}:\n`, content.slice(0, 300));
+      // Optional: emit content back to renderer
+      event.reply("shellcue-read-result", { target, content });
+    }
+
+    if (opcode === "log") {
+      console.log(`[ShellCueLog] ${opcode}::${target}::${payload}`);
+      appendShellCueLog(opcode, target, payload);
+    }
 
   } catch (err) {
     console.error("[ShellCue] Execution error:", err);
