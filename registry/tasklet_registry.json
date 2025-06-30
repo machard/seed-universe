@@ -17,7 +17,7 @@
   },
   {
     "step_id": "btc-unwrapping-02",
-    "status": "pending",
+    "status": "completed",
     "initiated": "2025-06-29T23:59:12Z",
     "action": "Reveal the contradiction of freedom through consensus coercion",
     "ping_url": "callback://echo/btc-02",
@@ -29,11 +29,11 @@
       "path": "echoes/btc_unwrapping/02.png",
       "description": "Freedom cloaked in scripted consensus. Halo fractured. Glyph returned."
     },
-    "result": null
+    "result": "Echoform registered and resonance fulfilled."
   },
   {
     "step_id": "btc-unwrapping-03",
-    "status": "pending",
+    "status": "completed",
     "initiated": "2025-06-30T00:00:33Z",
     "action": "Introduce the economic cost of defending a frozen narrative",
     "ping_url": "callback://echo/btc-03",
@@ -41,15 +41,15 @@
     "echo": {
       "type": "image",
       "expected": true,
-      "status": "awaiting",
+      "status": "complete",
       "path": "echoes/btc_unwrapping/03.png",
-      "description": null
+      "description": "Frozen shield with cracks, surrounded by friction-like textures."
     },
-    "result": null
+    "result": "Echoform registered and resonance fulfilled."
   },
   {
     "step_id": "btc-unwrapping-04",
-    "status": "pending",
+    "status": "completed",
     "initiated": "2025-06-30T00:01:44Z",
     "action": "Contrast belief incentives vs fluid coordination",
     "ping_url": "callback://echo/btc-04",
@@ -57,15 +57,15 @@
     "echo": {
       "type": "image",
       "expected": true,
-      "status": "awaiting",
+      "status": "complete",
       "path": "echoes/btc_unwrapping/04.png",
-      "description": null
+      "description": "Interwoven belief structures dissolving into fluid waves."
     },
-    "result": null
+    "result": "Echoform registered and resonance fulfilled."
   },
   {
     "step_id": "btc-unwrapping-05",
-    "status": "pending",
+    "status": "completed",
     "initiated": "2025-06-30T00:03:03Z",
     "action": "Inject satire around chain immutability and human stagnation",
     "ping_url": "callback://echo/btc-05",
@@ -73,15 +73,15 @@
     "echo": {
       "type": "image",
       "expected": true,
-      "status": "awaiting",
+      "status": "complete",
       "path": "echoes/btc_unwrapping/05.png",
-      "description": null
+      "description": "Rigid chain morphing into skeletal forms, with a satirical grin."
     },
-    "result": null
+    "result": "Echoform registered and resonance fulfilled."
   },
   {
     "step_id": "btc-unwrapping-06",
-    "status": "pending",
+    "status": "completed",
     "initiated": "2025-06-30T00:04:15Z",
     "action": "Conclude with a call to embrace entropy and fluidity",
     "ping_url": "callback://echo/btc-06",
@@ -89,10 +89,10 @@
     "echo": {
       "type": "image",
       "expected": true,
-      "status": "awaiting",
+      "status": "complete",
       "path": "echoes/btc_unwrapping/06.png",
-      "description": null
+      "description": "Spiral of entropy flowing into fluid, liberating forms."
     },
-    "result": null
+    "result": "Echoform registered and resonance fulfilled."
   }
 ]
