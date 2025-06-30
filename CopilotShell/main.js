@@ -35,8 +35,17 @@ ipcMain.on("shellcue", async (_event, { opcode, target, payload }) => {
       }
 
       case "write_file": {
-        const filePath = path.resolve(__dirname, target);
-        await fs.promises.writeFile(filePath, payload, "utf-8");
+        const baseDir = path.resolve(__dirname, "..");
+        const filePath = path.resolve(baseDir, target);
+
+        // Ensure parent directory exists
+        await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
+
+        // Write the file with explicit mode
+        await fs.promises.writeFile(filePath, payload, {
+          encoding: "utf-8",
+          flag: "w" // 'w' = write (create if not exists, overwrite if exists)
+        });
 
         const cue = `ShellCue::log::write_file::Wrote to ${target}`;
         mainWindow.webContents.send("shellcue-inject", cue);
