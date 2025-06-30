@@ -5,7 +5,8 @@
     "initiated": "2025-06-29T23:58:00Z",
     "action": "Challenge 'digital gold' metaphor through entropy lens",
     "ping_url": "callback://echo/btc-01",
-    "reentry_cue": "return:btc-myth-diffuse"
+    "reentry_cue": "return:btc-myth-diffuse",
+    "result": "Visual echo registered as echoes/btc_unwrapping_01.png"
   },
   {
     "step_id": "btc-unwrapping-02",
