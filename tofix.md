@@ -1,0 +1,1 @@
+- wait for full response before scanning the cues (avoids uncomplete cue)
