@@ -90,6 +90,30 @@ contextBridge.exposeInMainWorld("copilotBridge", {
   }
 });
 
+ipcRenderer.on("shellcue-inject", (_event, cueText) => {
+  const input = document.querySelector("textarea");
+  if (!input) {
+    console.warn("[ShellCue] ❌ Input box not found.");
+    return;
+  }
+
+  // Step 1: Set value and trigger input
+  input.value = cueText;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+
+  // Step 2: Wait for button to appear, then click
+  setTimeout(() => {
+    const sendBtn = document.querySelector('[data-testid="submit-button"]');
+    if (!sendBtn) {
+      console.warn("[ShellCue] ❌ Submit button still not found after input.");
+      return;
+    }
+
+    sendBtn.click();
+    console.log("[ShellCue] 🚀 Cue injected and sent:", cueText);
+  }, 100); // 100ms delay is usually enough — tweak if needed
+});
+
 // 🌐 Initialization
 window.addEventListener("DOMContentLoaded", () => {
   console.log("🌐 preload.js loaded — bridge is off by default");
