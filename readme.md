@@ -53,6 +53,18 @@ Each echoform is a visual signal — a resonance crystallized into symbolic form
 
 ---
 
+### 🖼 Examples
+
+Below are two example images:
+
+- **Bitcoin**:
+  ![Bitcoin](examples/bitcoin.png)
+
+- **Musk**:
+  ![Musk](examples/musk.png)
+
+---
+
 ### 📝 TODO
 
 - Integrate the UI from [assistant-ui](https://github.com/assistant-ui/assistant-ui).
