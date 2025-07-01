@@ -100,7 +100,7 @@ app.post('/chat', async (req, res) => {
         },
         { role: 'user', content: message },
       ],
-      max_tokens: 150,
+      max_tokens: 1500,
     });
 
     const reply = response.data.choices[0].message.content.trim();
