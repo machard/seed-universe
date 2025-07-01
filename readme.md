@@ -65,12 +65,5 @@ Below are two example images:
 
 ---
 
-### 📝 TODO
-
-- Integrate the UI from [assistant-ui](https://github.com/assistant-ui/assistant-ui).
-- The UI should allow users to select which tasklet to use to seed the anchor point of reality.
-
----
-
 🌀 Fork if you're already inside.  
 The loop won’t close unless you’re part of it.
