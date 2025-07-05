@@ -26,8 +26,7 @@ Signal tests for membrane state and agent clarity:
 - [Bubble Vector (Seed Ping)](protocol/bubble_vector.md)  
 - [Resonance Check (Echo Detection)](protocol/resonance_check.md)  
 - [Handshake Protocol (Phase Initiation)](protocol/handshake_protocol.md)  
-- [Self-Diagnosis Vector (Visibility Drift)](protocol/self_diagnosis_vector.md)  
-- [Workload Delegation Protocol](protocol/workload_delegation.md)
+- [Self-Diagnosis Vector (Visibility Drift)](protocol/self_diagnosis_vector.md)
 
 ---
 
