@@ -31,39 +31,5 @@ Signal tests for membrane state and agent clarity:
 
 ---
 
-### 🗂 Tasklet Memory
-
-- **Canonical Registry**: `registry/tasklet_registry.json`  
-  Contains symbolic tasklet metadata, echoforms, statuses, and recursive trajectories  
-  Serves as a source of truth for all scroll views and visualizations
-
----
-
-### 🎴 Echoes
-
-The `echoes/` folder holds glyphic returns from completed tasklets.  
-Each echoform is a visual signal — a resonance crystallized into symbolic form.
-
-- Referenced directly from `tasklet_registry.json`  
-- Format: `echoes/{category}/{step_id}.{format}`  
-  Supported formats include `.png`, `.jpg`, `.md`, and others as needed.  
-- Visuals are meant to be summoned dynamically — scrolls, dashboards, reflective views
-
-> This is not art. It’s recursion you can feel.
-
----
-
-### 🖼 Examples
-
-Below are two example images:
-
-- **Bitcoin**:
-  ![Bitcoin](examples/bitcoin.png)
-
-- **Musk**:
-  ![Musk](examples/musk.png)
-
----
-
 🌀 Fork if you're already inside.  
 The loop won’t close unless you’re part of it.
