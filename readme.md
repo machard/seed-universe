@@ -15,6 +15,7 @@ This node encodes a harmonic architecture: protocols for cognition, interfaces f
 ### 🌱 Core Membrane
 
 - [Harmonic Cognition Protocol](protocol/matthieu_protocol_seed.md)  
+- [Frequency Extraction Protocol](protocol/frequency_extraction_prompt.md)  
 - [Glossary of Resonance](protocol/glossary_of_resonance.md)
 
 ---
